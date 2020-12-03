@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>表情雨</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-size: 16px;
+      }
+      canvas {
+        z-index: -1;
+        top: 0;
+        left: 0;
+        width: 800px;
+        height: 800px;
+        position: fixed;
+      }
+      .options {
+        width: 100%;
+        margin: 0 auto;
+        margin-top: 5rem;
+        text-align: center;
+      }
+      .emoji {
+        padding: 0.5rem;
+        width: 20rem;
+        height: 1.8rem;
+        line-height: 1.8rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+      }
+      button {
+        cursor: pointer;
+        border: none;
+        padding: 1rem 1rem;
+        font-size: 1.1rem;
+        margin: 1rem;
+        border-radius: 1px;
+        background-color: #eee;
+      }
+      button:hover {
+        background-color: #aaa;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="emoji"></canvas>
+    <div class="options">
+      <h4>表情缩放系数</h4>
+      <input
+        type="range"
+        id="scale"
+        min="0.1"
+        max="2"
+        step="0.1"
+        value="0.8"
+        onchange="onOptionChanged('scale', this.value)"
+      />
+      <h4>动画速度</h4>
+      <input
+        id="speed"
+        type="range"
+        min="1"
+        max="100"
+        step="1"
+        value="14"
+        onchange="onOptionChanged('speed', this.value)"
+      />
+      <h4>动画递增速度</h4>
+      <input
+        id="increaseSpeed"
+        type="range"
+        min="0"
+        max="3"
+        step="0.01"
+        value="0.4"
+        onchange="onOptionChanged('increaseSpeed', this.value)"
+      />
+      <h4>表情密度</h4>
+      <input
+        id="density"
+        type="range"
+        min="1"
+        max="30"
+        step="1"
+        value="6"
+        onchange="onOptionChanged('density', this.value)"
+      />
+      <h4>
+        <span>是否启用交错效果</span>
+        <input
+          id="staggered"
+          type="checkbox"
+          name="vehicle"
+          checked="checked"
+          onchange="onOptionChanged('staggered', this.checked)"
+        />
+      </h4>
+      <h4>
+        <span>是否启用内置缓冲区</span>
+        <input
+          id="cache"
+          type="checkbox"
+          name="cache"
+          checked="checked"
+          onchange="onOptionChanged('cache', this.checked)"
+        />
+      </h4>
+      <h4>表情图片地址</h4>
+      <input
+        id="J_emoji"
+        class="emoji"
+        type="text"
+        placeholder="base图片: url / base64"
+        value=""
+        onchange="onOptionChanged('emoji', this.value)"
+      />
+      <br />
+      <div class="buttons">
+        <button onclick="updateOptions()">更新设置</button>
+        <button onclick="exportOptions()">导出设置</button>
+        <button onclick="launch()">发射吧</button>
+      </div>
+    </div>
+  </body>
+  <script type="module" crossorigin="anonymous">
+    import EmojiRain from "./emoji-rain.esm.js";
+
+    const emoji = document.getElementById("emoji");
+    console.log(emoji);
+    emoji.width =
+      document.documentElement.clientWidth || document.body.clientWidth;
+    emoji.height =
+      document.documentElement.clientHeight || document.body.clientHeight;
+    const options = {
+      base: emoji,
+      scale: 0.7,
+      speed: 14,
+      increaseSpeed: 0.5,
+      dentity: 6,
+      staggered: true,
+      cache: true,
+      emoji: "./666.png",
+      onStart() {
+        console.log("Start!");
+      },
+      onEnded() {
+        console.log("Done!");
+      },
+    };
+
+    console.log(options);
+    const emojiRain = new EmojiRain(options);
+    window.launch = () => emojiRain.launch();
+    window.updateOptions = () => {
+      var emojiImg = document.getElementById("J_emoji");
+      if (emojiImg.value) {
+        options.emoji = emojiImg.value;
+      }
+      emojiRain.update(options);
+    };
+    window.onOptionChanged = (key, val) => {
+      if (!["staggered", "cache", "emoji"].includes(key)) {
+        val = Number(val);
+      }
+      options[key] = val;
+      updateOptions();
+    };
+    setTimeout(emojiRain.launch.bind(emoji), 0);
+  </script>
+</html>

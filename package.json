@@ -1,0 +1,59 @@
+{
+  "name": "emoji-rain-flow",
+  "version": "0.1.0",
+  "description": "emoji rain library",
+  "main": "dist/emoji-rain-flow.cjs.js",
+  "module": "dist/emoji-rain-flow.esm.js",
+  "browser": "dist/emoji-rain-flow.umd.js",
+  "type": "dist/types/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "rollup -c",
+    "build": "npm run build:types && npm run build:js",
+    "copy": "cp dist/emoji-rain-flow.esm.js doc/emoji-rain-flow.esm.js",
+    "serve": "serve doc",
+    "doc": "npm run copy && npm run serve"
+  },
+  "bin": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khaliliu/emoji-rain-flow.git"
+  },
+  "keywords": [
+    "emoji",
+    "node",
+    "typescript",
+    "rollup"
+  ],
+  "author": "khaliliu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/khaliliu/emoji-rain-flow/issues"
+  },
+  "homepage": "https://github.com/khaliliu/emoji-rain-flow/issues#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/plugin-proposal-class-properties": "7.12.1",
+    "@babel/plugin-proposal-object-rest-spread": "7.12.1",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-typescript": "^7.9.0",
+    "@rollup/plugin-babel": "^5.2.2",
+    "@rollup/plugin-commonjs": "^16.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^10.0.0",
+    "@rollup/plugin-typescript": "^6.1.0",
+    "@typescript-eslint/eslint-plugin": "^4.8.1",
+    "@typescript-eslint/parser": "^4.8.1",
+    "eslint": "^7.13.0",
+    "rollup": "^2.33.3",
+    "rollup-plugin-terser": "^7.0.2",
+    "serve": "^11.3.2",
+    "typescript": "^4.0.5"
+  }
+}
