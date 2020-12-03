@@ -1,10 +1,10 @@
 {
-  "name": "emoji-rain-flow",
-  "version": "0.1.1",
-  "description": "emoji rain library",
-  "main": "dist/emoji-rain-flow.cjs.js",
-  "module": "dist/emoji-rain-flow.esm.js",
-  "browser": "dist/emoji-rain-flow.umd.js",
+  "name": "promise-queue",
+  "version": "0.1.0",
+  "description": "concurrency promise control flow",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "browser": "dist/index.umd.js",
   "type": "dist/types/index.d.ts",
   "files": [
     "dist/**/*"
@@ -15,7 +15,6 @@
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "rollup -c",
     "build": "npm run build:types && npm run build:js",
-    "copy": "cp dist/emoji-rain-flow.esm.js doc/emoji-rain-flow.esm.js",
     "serve": "serve doc",
     "doc": "npm run copy && npm run serve"
   },
